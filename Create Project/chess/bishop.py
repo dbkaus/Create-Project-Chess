@@ -11,12 +11,19 @@ class Bishop:
         self.y = 0
         self.position()
     
+    # x/y pos based on location in array
     def position(self):
-        self.x = SQUARE_SIZE * self.col + 10
-        self.y = SQUARE_SIZE * self.row + 10
+        self.x = SQUARE_SIZE * self.col + 15
+        self.y = SQUARE_SIZE * self.row + 15
 
+    # load png asset for piece on screen, at x/y, for proper color
     def draw(self, win):
         if self.color == WHITE:
             win.blit(WHITE_BISHOP, (self.x, self.y))
         else:
             win.blit(BLACK_BISHOP, (self.x, self.y))
+    
+    def move_piece(self, row, col):
+        self.row = row
+        self.col = col
+        self.position()

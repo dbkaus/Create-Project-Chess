@@ -10,7 +10,6 @@ from .rook import Rook
 class Board:
     def __init__(self):
         self.board = []
-        self.selected_piece = None
         self.place_pieces()
 
     def draw_checkerboard(self, win):
@@ -57,3 +56,15 @@ class Board:
                 if piece_loc != 0:
                     piece_loc.draw(win)
 
+    def move_piece(self, piece, row, col):
+        self.board[piece.row][piece.col], self.board[row][col] = 0, self.board[piece.row][piece.col]
+        piece.move_piece(row, col)
+
+        if (row == ROWS or row == 0) and piece == Pawn:
+            if piece.color == WHITE:
+                self.board[row][col] = (Queen(row, col, WHITE))
+            else:
+                self.board[row][col] = (Queen(row, col, BLACK))
+
+    def return_piece(self, row, col):
+        return self.board[row][col]
